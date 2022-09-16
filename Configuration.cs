@@ -3,31 +3,28 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Xml.Serialization;
 
 namespace MOTDgd
 {
     public class MOTDgdConfiguration : IRocketPluginConfiguration
     {
-        public int User_ID; 
-        public int Reminder_delay; 
-        public int Number_of_ads_before_cooldown; 
-        public string Reward_mode; 
-        public int CooldownTime; 
-        public bool Global_messages; 
-        public bool Ad_on_join; 
+        public int User_ID;
+        public int Reminder_delay;
+        public int Number_of_ads_before_cooldown;
+        public string Reward_mode;
+        public int CooldownTime;
+        public bool Global_messages;
+        public bool Ad_on_join;
         public bool Reapply_join_command;
         public bool Give_reward_when_video_unavailable;
-        public bool AdvancedLogging; 
+        public bool AdvancedLogging;
         public string Executor_CSteamID;
         public List<string> Join_Commands;
 
         public sealed class Reward
         {
-            [XmlAttribute("Command")]
             public string Command;
 
-            [XmlAttribute("Probability")]
             public int Probability;
 
             public Reward(string command, int probability)
@@ -45,13 +42,10 @@ namespace MOTDgd
 
         public sealed class Translation
         {
-            [XmlAttribute("Identifier")]
             public string Identifier;
 
-            [XmlAttribute("Text")]
             public string Text;
 
-            [XmlAttribute("Color")]
             public string Color;
 
             public Translation(string identifier, string text, string color)
@@ -68,12 +62,8 @@ namespace MOTDgd
                 Color = "";
             }
         }
-        [XmlArrayItem("Reward")]
-        [XmlArray(ElementName = "Rewards")]
         public Reward[] Rewards;
 
-        [XmlArrayItem("Translation")]
-        [XmlArray(ElementName = "Translations")]
         public Translation[] Translations;
 
         public void LoadDefaults()
@@ -83,7 +73,7 @@ namespace MOTDgd
                 new Reward("Reward",1)
             };
             Join_Commands = new List<string>() { "broadcast (player) connected to the server!" };
-            Reminder_delay = 5; 
+            Reminder_delay = 5;
             Number_of_ads_before_cooldown = 1;
             Reward_mode = "ALL";
             CooldownTime = 15;

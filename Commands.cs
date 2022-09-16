@@ -4,7 +4,7 @@ using Rocket.Unturned.Player;
 using Steamworks;
 using System.Collections.Generic;
 using UnityEngine;
-
+using static MOTDgd.Main;
 
 namespace MOTDgd
 {
@@ -70,15 +70,15 @@ namespace MOTDgd
             }
             else if (Main.OnCooldown(player))
             {
-                UnturnedChat.Say((IRocketPlayer)player, Main.Translation_dictionary["COOLDOWN"].Key, Main.Translation_dictionary["COOLDOWN"].Value);
+                messages_to_say.Add(new SayMessage(player, Translation_dictionary["COOLDOWN"].Key, Translation_dictionary["COOLDOWN"].Value));
             }
             else if (Main.Connected == false)
             {
-                UnturnedChat.Say(player, "There was error while connecting to HUB. Try again later.");
+                messages_to_say.Add(new SayMessage(player, "There was error while connecting to HUB. Try again later."));
             }
             else
             {
-                UnturnedChat.Say(player, "Error while processing your request.");
+                messages_to_say.Add(new SayMessage(player, "Error while processing your request."));
             }
         }
     }
@@ -142,11 +142,11 @@ namespace MOTDgd
             var data = Main.CooldownTime(player);
             if (data != "")
             {
-                UnturnedChat.Say((IRocketPlayer)player, Main.setTranslationParams(Main.Translation_dictionary["COOLDOWN_REMAINING"].Key, data), Main.Translation_dictionary["COOLDOWN_REMAINING"].Value);
+                messages_to_say.Add(new SayMessage(player, Main.setTranslationParams(Main.Translation_dictionary["COOLDOWN_REMAINING"].Key, data), Main.Translation_dictionary["COOLDOWN_REMAINING"].Value));
             }
             else
             {
-                UnturnedChat.Say((IRocketPlayer)player, Main.Translation_dictionary["NOT_ON_COOLDOWN"].Key, Main.Translation_dictionary["NOT_ON_COOLDOWN"].Value);
+                messages_to_say.Add(new SayMessage(player, Main.Translation_dictionary["NOT_ON_COOLDOWN"].Key, Main.Translation_dictionary["NOT_ON_COOLDOWN"].Value));
             }
         }
     }
@@ -279,7 +279,7 @@ namespace MOTDgd
                 else
                 {
                     UnturnedPlayer player = (UnturnedPlayer)caller;
-                    UnturnedChat.Say(player, "Wrong syntax of command");
+                    messages_to_say.Add(new SayMessage(player, "Wrong syntax of command"));
                 }
             }
         }
@@ -359,7 +359,7 @@ namespace MOTDgd
                         else
                         {
                             UnturnedPlayer player = (UnturnedPlayer)caller;
-                            UnturnedChat.Say(player, "Didn't recognize " + command[0] + " as valid reward mode.");
+                            messages_to_say.Add(new SayMessage(player, "Didn't recognize " + command[0] + " as valid reward mode."));
                         }
                         break;
                 }
@@ -373,7 +373,7 @@ namespace MOTDgd
                 else
                 {
                     UnturnedPlayer player = (UnturnedPlayer)caller;
-                    UnturnedChat.Say(player, "Wrong syntax of command");
+                    messages_to_say.Add(new SayMessage(player, "Wrong syntax of command"));
                 }
             }
         }
@@ -445,7 +445,7 @@ namespace MOTDgd
                     else
                     {
                         UnturnedPlayer player = (UnturnedPlayer)caller;
-                        UnturnedChat.Say(player, "Cannot find player with name " + command[0]);
+                        messages_to_say.Add(new SayMessage(player, "Cannot find player with name " + command[0]));
                     }
                 }
             }
@@ -458,7 +458,7 @@ namespace MOTDgd
                 else
                 {
                     UnturnedPlayer player = (UnturnedPlayer)caller;
-                    UnturnedChat.Say(player, "Wrong syntax of command");
+                    messages_to_say.Add(new SayMessage(player, "Wrong syntax of command"));
                 }
             }
         }
